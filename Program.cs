@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Week_2
@@ -13,13 +14,20 @@ namespace Week_2
             PlayersProcessor playerProcessor = new PlayersProcessor();
             ItemsProcessor itemsProcessor = new ItemsProcessor();
             //Teht 1.
-            var list = playerProcessor.Create(15);
-            if (playerProcessor.CheckDublicates(list)){
+            var playerList = playerProcessor.Create(15);
+            if (playerProcessor.CheckDublicates(playerList)){
                 Console.WriteLine("Duplicates found");
             }
             else{
                 Console.WriteLine("No Duplicates found");
             }
+            foreach (var player in playerList)
+            {
+                Random rand = new Random();
+                int score = rand.Next(100);
+                player.Score = score;
+            }
+            Game<Player> game = new Game<Player>(playerList);
             //Teht 2.
             var list2 = playerProcessor.Create(1);
             Player hoarder = list2[0];
@@ -48,6 +56,12 @@ namespace Week_2
             Console.WriteLine(item.Level.ToString());
             };
             itemsProcessor.ProcessEachItem(hoarder, printfuction2);
+            //Teht 7.
+            var list = game.GetTop10Players();
+            foreach (var player in list)
+            {
+                Console.WriteLine(player.Score);
+            }
 
         }
     }
